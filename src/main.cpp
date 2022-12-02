@@ -31,7 +31,12 @@ void setup() {
 }
 
 void loop() {
+  const unsigned long target_frame_time_microseconds = 500000;
+  unsigned long frame_start_microseconds = micros();
   Serial.print("looping ");
-  Serial.println(millis());
-  delay(500);
+  Serial.println(frame_start_microseconds);
+
+  unsigned long frame_duration_microseconds = micros() - frame_start_microseconds;
+  if (frame_duration_microseconds < target_frame_time_microseconds)
+    delayMicroseconds(target_frame_time_microseconds - frame_duration_microseconds);
 }
